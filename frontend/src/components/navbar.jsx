@@ -253,7 +253,7 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: 'Dashboard',
+    label: 'Weather',
     href: "/dashboard",
     // children: [
     //   {
@@ -268,10 +268,7 @@ const NAV_ITEMS = [
     //   },
     // ],
   },
-  {
-    label: 'Weather',
-
-  },
+ 
   {
     label: 'About',
     href: '#',

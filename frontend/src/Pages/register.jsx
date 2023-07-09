@@ -1,3 +1,5 @@
+
+
 import {
     Flex,
     Box,
@@ -19,6 +21,11 @@ import { Link } from 'react-router-dom';
 
 export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
+    const [name, setname] = useState("")
+    const [Email, setEmail] = useState("")
+    const [Password, setPassword] = useState("")
+    const [Location, setLocation] = useState("")
+
 
     return (
         <Flex
@@ -41,18 +48,27 @@ export default function SignupCard() {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
-                    <FormControl id="name" isRequired>
+                        <FormControl id="name" isRequired>
                             <FormLabel>Enter Your Name</FormLabel>
-                            <Input type="text" />
+                            <Input type="text"
+                                value={name}
+                                onChange={(e) => setname(e.target.value)}
+                            />
                         </FormControl>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
+                            <Input type="email"
+                            value={Email}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            />
                         </FormControl>
                         <FormControl id="password" isRequired>
                             <FormLabel>Password</FormLabel>
                             <InputGroup>
-                                <Input type={showPassword ? 'text' : 'password'} />
+                                <Input
+                                value={Password}
+                                onChange={(e)=>setPassword(e.target.value)}
+                                type={showPassword ? 'text' : 'password'} />
                                 <InputRightElement h={'full'}>
                                     <Button
                                         variant={'ghost'}
@@ -66,7 +82,11 @@ export default function SignupCard() {
                         </FormControl>
                         <FormControl id="location" isRequired>
                             <FormLabel>Enter Your Location</FormLabel>
-                            <Input type="text" />
+                            <Input type="text" 
+                            value={Location}
+                            onChange={(e)=>setLocation(e.target.value)}
+
+                            />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
                             <Button
