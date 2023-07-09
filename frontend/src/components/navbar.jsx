@@ -1,3 +1,4 @@
+import { Link as RouterLink} from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -30,8 +31,8 @@ export default function WithSubnavigation() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={useColorModeValue('brown.500', 'brown.800')} // Updated background color here
+        color={useColorModeValue('gray.600', 'black')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -56,8 +57,11 @@ export default function WithSubnavigation() {
           <Text
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
-            <img style={{ borderRadius: "5px", width: "35px" }} src="https://img.freepik.com/free-psd/3d-icon-weather-conditions-with-rain-sun_23-2150108737.jpg?w=740&t=st=1688895473~exp=1688896073~hmac=76da3c2169dc2780677a9f0ac85eeb02ea481283bb81aaeedfe747839042e9ad" alt="" />
+            color={useColorModeValue('gray.800', 'white')}
+          >
+            <RouterLink to="/">
+              <img style={{ borderRadius: "5px", width: "35px" }} src="https://img.freepik.com/free-psd/3d-icon-weather-conditions-with-rain-sun_23-2150108737.jpg?w=740&t=st=1688895473~exp=1688896073~hmac=76da3c2169dc2780677a9f0ac85eeb02ea481283bb81aaeedfe747839042e9ad" alt="" />
+            </RouterLink>
           </Text>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -73,6 +77,7 @@ export default function WithSubnavigation() {
           <Button
             as={'a'}
             fontSize={'sm'}
+            cursor={"pointer"}
             fontWeight={400}
             variant={'link'}
             onClick={() => navigate("/login")}>
@@ -83,6 +88,7 @@ export default function WithSubnavigation() {
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}
+            cursor={"pointer"}
             color={'white'}
             bg={'pink.400'}
             _hover={{
@@ -247,34 +253,24 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: 'Current Weather',
-    children: [
-      {
-        label: 'Explore Design Work',
-        subLabel: 'Trending Design to inspire you',
-        href: '#',
-      },
-      {
-        label: 'New & Noteworthy',
-        subLabel: 'Up-and-coming Designers',
-        href: '#',
-      },
-    ],
+    label: 'Dashboard',
+    href: "/dashboard",
+    // children: [
+    //   {
+    //     label: 'Explore Design Work',
+    //     subLabel: 'Trending Design to inspire you',
+    //     href: '/',
+    //   },
+    //   {
+    //     label: 'New & Noteworthy',
+    //     subLabel: 'Up-and-coming Designers',
+    //     href: '#',
+    //   },
+    // ],
   },
   {
     label: 'Weather',
-    children: [
-      {
-        label: 'Job Board',
-        subLabel: 'Find your dream design job',
-        href: '#',
-      },
-      {
-        label: 'Freelance Projects',
-        subLabel: 'An exclusive list for contract work',
-        href: '#',
-      },
-    ],
+
   },
   {
     label: 'About',

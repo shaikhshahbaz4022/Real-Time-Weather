@@ -31,19 +31,20 @@ export default function CaptionCarousel() {
 
   const cards = [
     {
-      title: 'Design Projects 1',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: 'https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      title: 'Your Ultimate Weather Companion',
+      text: "Sunshine is delicious, rain is refreshing, wind braces us up, snow is exhilarating; there is really no such thing as bad weather, only different kinds of good weather.",
+     
+      image: 'https://cdn.pixabay.com/photo/2018/04/20/09/49/sky-3335585_1280.jpg',
     },
     {
-      title: 'Design Projects 2',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: 'https://images.unsplash.com/photo-1438183972690-6d4658e3290e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2274&q=80',
+      title: 'Your Complete Weather Guide',
+      text: "The best thing one can do when it's raining is to let it rain",
+      image: 'https://cdn.pixabay.com/photo/2018/06/03/00/18/sea-3449509_1280.jpg',
     },
     {
-      title: 'Design Projects 3',
-      text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
-      image: 'https://images.unsplash.com/photo-1507237998874-b4d52d1dd655?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
+      title: ' Real-time Updates at Your Fingertips',
+      text: "Weather is a great metaphor for life - sometimes it's good, sometimes it's bad, and there's nothing much you can do about it but carry an umbrella",
+      image: 'https://cdn.pixabay.com/photo/2023/05/20/16/05/island-8006762_1280.jpg',
     },
   ];
 
@@ -92,6 +93,7 @@ export default function CaptionCarousel() {
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
+            color={'white'}
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}
           >
@@ -107,7 +109,7 @@ export default function CaptionCarousel() {
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: 'md', lg: 'lg' }} color="GrayText">
+                <Text  fontSize={{ base: 'md', lg: 'lg' }} color="white">
                   {card.text}
                 </Text>
               </Stack>
