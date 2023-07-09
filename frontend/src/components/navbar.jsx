@@ -1,4 +1,4 @@
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -23,12 +23,24 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+// import { useState } from 'react';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+  // const [toggle, settoggle] = useState(false)
   const navigate = useNavigate()
 
+  let token = localStorage.getItem("token")
+  let user = JSON.parse(localStorage.getItem("user")) || []
+  console.log(token);
+  console.log(user);
+
+  function HandleLogout() {
+    localStorage.clear()
+    navigate("/")
+  }
   return (
+
     <Box>
       <Flex
         bg={useColorModeValue('brown.500', 'brown.800')} // Updated background color here
@@ -68,35 +80,68 @@ export default function WithSubnavigation() {
             <DesktopNav />
           </Flex>
         </Flex>
+        {
+          token ? <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}>
+            <Button
+              as={'a'}
+              fontSize={'sm'}
+              cursor={"pointer"}
+              fontWeight={400}
+              variant={'link'}
+            >
+              {user.name}
+            </Button>
+            <Button
+              as={'a'}
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              cursor={"pointer"}
+              color={'white'}
+              bg={'pink.400'}
+              _hover={{
+                bg: 'pink.300',
+              }}
+              onClick={HandleLogout}>
+              Logout
+            </Button>
+          </Stack>
+            :
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}>
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            cursor={"pointer"}
-            fontWeight={400}
-            variant={'link'}
-            onClick={() => navigate("/login")}>
-            Sign In
-          </Button>
-          <Button
-            as={'a'}
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            cursor={"pointer"}
-            color={'white'}
-            bg={'pink.400'}
-            _hover={{
-              bg: 'pink.300',
-            }} onClick={() => navigate("/signup")}>
-            Sign Up
-          </Button>
-        </Stack>
+
+            <Stack
+              flex={{ base: 1, md: 0 }}
+              justify={'flex-end'}
+              direction={'row'}
+              spacing={6}>
+              <Button
+                as={'a'}
+                fontSize={'sm'}
+                cursor={"pointer"}
+                fontWeight={400}
+                variant={'link'}
+                onClick={() => navigate("/login")}>
+                Sign In
+              </Button>
+              <Button
+                as={'a'}
+                display={{ base: 'none', md: 'inline-flex' }}
+                fontSize={'sm'}
+                fontWeight={600}
+                cursor={"pointer"}
+                color={'white'}
+                bg={'pink.400'}
+                _hover={{
+                  bg: 'pink.300',
+                }} onClick={() => navigate("/signup")}>
+                Sign Up
+              </Button>
+            </Stack>
+        }
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -268,7 +313,7 @@ const NAV_ITEMS = [
     //   },
     // ],
   },
- 
+
   {
     label: 'About',
     href: '#',

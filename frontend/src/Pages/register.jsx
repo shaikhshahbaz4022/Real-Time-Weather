@@ -46,7 +46,7 @@ export default function SignupCard() {
                     setpreffered_city("")
                     toast.success(`${data.msg}`)
                     setTimeout(() => {
-                        navigate("/")
+                        navigate("/login")
                     }, 5000);
                 }
 
