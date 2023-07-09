@@ -4,9 +4,11 @@ const userRouter = require('./Routes/user.Routes');
 const cityRouter = require('./Routes/city.Routes');
 const Auth = require('./Middleware/Auth');
 const limiter = require('./Middleware/redis.limiter');
+const cors = require('cors');
 const app = express()
 require("dotenv").config()
 app.use(express.json())
+app.use(cors())
 
 app.use("/user",userRouter)
 app.use(limiter)

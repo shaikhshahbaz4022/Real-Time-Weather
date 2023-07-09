@@ -7,7 +7,7 @@ import {
     FormLabel,
     Input,
     InputGroup,
-    HStack,
+
     InputRightElement,
     Stack,
     Button,
@@ -17,14 +17,44 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignupCard() {
+    let navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [name, setname] = useState("")
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
-    const [Location, setLocation] = useState("")
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
+    const [preffered_city, setpreffered_city] = useState("")
+
+    function handleSubmit() {
+        fetch(`http://localhost:8080/user/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, email, password, preffered_city })
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.ok) {
+                    setname("")
+                    setemail("")
+                    setpassword("")
+                    setpreffered_city("")
+                    toast.success(`${data.msg}`)
+                    setTimeout(() => {
+                        navigate("/")
+                    }, 5000);
+                }
+
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 
 
     return (
@@ -34,6 +64,7 @@ export default function SignupCard() {
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
             <Stack spacing={8} mx={'auto'} maxW={'xl'} py={12} px={6}>
+                <ToastContainer />
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'} textAlign={'center'}>
                         Sign up
@@ -56,19 +87,19 @@ export default function SignupCard() {
                             />
                         </FormControl>
                         <FormControl id="email" isRequired>
-                            <FormLabel>Email address</FormLabel>
+                            <FormLabel>email address</FormLabel>
                             <Input type="email"
-                            value={Email}
-                            onChange={(e)=>setEmail(e.target.value)}
+                                value={email}
+                                onChange={(e) => setemail(e.target.value)}
                             />
                         </FormControl>
                         <FormControl id="password" isRequired>
                             <FormLabel>Password</FormLabel>
                             <InputGroup>
                                 <Input
-                                value={Password}
-                                onChange={(e)=>setPassword(e.target.value)}
-                                type={showPassword ? 'text' : 'password'} />
+                                    value={password}
+                                    onChange={(e) => setpassword(e.target.value)}
+                                    type={showPassword ? 'text' : 'password'} />
                                 <InputRightElement h={'full'}>
                                     <Button
                                         variant={'ghost'}
@@ -81,15 +112,17 @@ export default function SignupCard() {
                             </InputGroup>
                         </FormControl>
                         <FormControl id="location" isRequired>
-                            <FormLabel>Enter Your Location</FormLabel>
-                            <Input type="text" 
-                            value={Location}
-                            onChange={(e)=>setLocation(e.target.value)}
+                            <FormLabel>Enter Your preffered_city</FormLabel>
+                            <Input type="text"
+                                value={preffered_city}
+                                onChange={(e) => setpreffered_city(e.target.value)}
 
                             />
                         </FormControl>
                         <Stack spacing={10} pt={2}>
+
                             <Button
+                                onClick={handleSubmit}
                                 loadingText="Submitting"
                                 size="lg"
                                 bg={'blue.400'}
