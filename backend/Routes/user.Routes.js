@@ -128,7 +128,7 @@ userRouter.post("/login", async (req, res) => {
 
         const user = await UserModel.findOne({ email })
         if (!user) {
-            return res.status(201).send({ "msg": "registration First" })
+            return res.status(201).send({ "msg": "Please Registration First" })
         }
         bcrypt.compare(password, user.password, function (err, result) {
             if (result) {
@@ -136,7 +136,7 @@ userRouter.post("/login", async (req, res) => {
 
                 res.status(201).send({ "msg": "login Succesfull", ok: true, token: token, user: user })
             } else {
-                res.status(201).send({ "msg": "login Failed" })
+                res.status(401).send({ "msg": "login Failed" })
 
             }
         });
