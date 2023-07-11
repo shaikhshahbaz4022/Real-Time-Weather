@@ -23,20 +23,27 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 // import { useState } from 'react';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   // const [toggle, settoggle] = useState(false)
   const navigate = useNavigate()
-
+  const [toggle, settoggle] = useState(false)
+  console.log(toggle);
   let token = localStorage.getItem("token")
   let user = JSON.parse(localStorage.getItem("user")) || []
-  console.log(token);
-  console.log(user);
+  useEffect(() => {
+
+    if (token) {
+      settoggle(!toggle)
+    }
+  }, [])
 
   function HandleLogout() {
     localStorage.clear()
+    settoggle(!toggle)
     navigate("/")
   }
   return (
@@ -124,7 +131,10 @@ export default function WithSubnavigation() {
                 cursor={"pointer"}
                 fontWeight={400}
                 variant={'link'}
-                onClick={() => navigate("/login")}>
+                onClick={() => {
+                  navigate("/login")
+                  settoggle(!toggle)
+                }}>
                 Sign In
               </Button>
               <Button
@@ -137,7 +147,13 @@ export default function WithSubnavigation() {
                 bg={'pink.400'}
                 _hover={{
                   bg: 'pink.300',
-                }} onClick={() => navigate("/signup")}>
+                }} onClick={() => {
+                  navigate("/signup")
+                  settoggle(!toggle)
+
+                }
+
+                }>
                 Sign Up
               </Button>
             </Stack>
@@ -163,6 +179,7 @@ const DesktopNav = () => {
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Link
+
                 p={2}
                 href={navItem.href ?? '#'}
                 fontSize={'lg'}
@@ -295,11 +312,15 @@ const MobileNavItem = ({ label, children, href }) => {
   );
 };
 
+let her = localStorage.getItem("token")
+
 
 const NAV_ITEMS = [
   {
     label: 'Weather',
-    href: "/dashboard",
+    href: her ? "/dashboard" : "/login"
+
+
     // children: [
     //   {
     //     label: 'Explore Design Work',

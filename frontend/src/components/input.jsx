@@ -9,13 +9,13 @@ import {
   Center,
   Text,
   Stack,
-  Link,
-  Badge,
+  
+ 
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 export default function InputBox() {
-  const [toggle, settoggle] = useState(false)
+
   const [Image, setImage] = useState("")
   const [Temp, setTemp] = useState("")
   const [inputval, setinputval] = useState("")
@@ -23,30 +23,34 @@ export default function InputBox() {
   const [State, setState] = useState("")
   const [Desc, setDesc] = useState("")
   const [Humidity, setHumidity] = useState("")
+  const [Time, setTime] = useState("")
+
   const showele = document.getElementById("show")
   function Handlesubmit() {
-    settoggle(true)
-    showele.style.display = "block"
+
     fetch(`http://localhost:8080/city?city=${inputval}`)
-    .then((res) => {
-      return res.json()
-    })
-    .then((data) => {
-      console.log(data)
-      setinputval("")
-      
-      console.log(data.current.condition.icon);
-      setImage(data.current.condition.icon)
-      setTemp(data.current.temp_c)
-      setDesc(data.current.condition.text)
-      setCity(data.location.name)
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+        setinputval("")
+
+        console.log(data.current.condition.icon);
+        setImage(data.current.condition.icon)
+        setTemp(data.current.temp_c)
+        setDesc(data.current.condition.text)
+        setCity(data.location.name)
         setState(data.location.region)
+        setTime(data.location.localtime)
+        setHumidity(data.current.humidity)
 
 
       })
       .catch((err) => {
         console.log(err)
       })
+    showele.style.display = "block"
   }
   return (
     <Flex
@@ -125,33 +129,23 @@ export default function InputBox() {
             textAlign={'center'}
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
-            {Desc}
+            Weather : {Desc}
 
 
           </Text>
+          <Text
+            textAlign={'center'}
+            color={useColorModeValue('gray.700', 'gray.400')}
+            px={3}>
+            TimeZone : {Time.toString()}
+            Humidity : {Humidity}
+          </Text>
+          
 
           <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}>
-              #art
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}>
-              #photography
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}>
-              #music
-            </Badge>
+           
+          
+          
           </Stack>
 
           <Stack mt={8} direction={'row'} spacing={4}>

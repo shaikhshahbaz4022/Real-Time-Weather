@@ -39,13 +39,16 @@ export default function SimpleCard() {
           setTimeout(() => {
             navigate("/")
           }, 5000);
-        } else {
-          toast.error("Some error Occured")
+        } else if (data.msg === "Please Registration First") {
+          toast.error(data.msg)
+        } else if (data.msg === "login Failed") {
+          toast.error(data.msg)
         }
 
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err)
       })
   }
 
