@@ -15,14 +15,34 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 export default function InputBox() {
+  const [toggle, settoggle] = useState(false)
+  const [Image, setImage] = useState("")
+  const [Temp, setTemp] = useState("")
   const [inputval, setinputval] = useState("")
+  const [City, setCity] = useState("")
+  const [State, setState] = useState("")
+  const [Desc, setDesc] = useState("")
+  const [Humidity, setHumidity] = useState("")
+  const showele = document.getElementById("show")
   function Handlesubmit() {
-    fetch(`http://localhost:4031/city?city=${inputval}`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        console.log(data)
+    settoggle(true)
+    showele.style.display = "block"
+    fetch(`http://localhost:8080/city?city=${inputval}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data)
+      setinputval("")
+      
+      console.log(data.current.condition.icon);
+      setImage(data.current.condition.icon)
+      setTemp(data.current.temp_c)
+      setDesc(data.current.condition.text)
+      setCity(data.location.name)
+        setState(data.location.region)
+
+
       })
       .catch((err) => {
         console.log(err)
@@ -32,10 +52,11 @@ export default function InputBox() {
     <Flex
       flexDirection={'column'}
       minH={'100vh'}
-      align={'center'} // Updated align property
-      justify={'center'} // Updated justify property
+      align={'center'}
+      justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}
     >
+
       <Stack
         spacing={4}
         w={'full'}
@@ -72,8 +93,11 @@ export default function InputBox() {
           </Button>
         </Stack>
       </Stack>
+
       <Center py={6}>
         <Box
+          id='show'
+          display={"none"}
           maxW={'320px'}
           w={'full'}
           bg={useColorModeValue('white', 'gray.900')}
@@ -84,38 +108,26 @@ export default function InputBox() {
           <Avatar
             size={'xl'}
             src={
-              'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              Image
             }
             alt={'Avatar Alt'}
             mb={4}
             pos={'relative'}
-            _after={{
-              content: '""',
-              w: 4,
-              h: 4,
-              bg: 'green.300',
-              border: '2px solid white',
-              rounded: 'full',
-              pos: 'absolute',
-              bottom: 0,
-              right: 3,
-            }}
+
           />
           <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Lindsey James
+            {Temp}°
           </Heading>
           <Text fontWeight={600} color={'gray.500'} mb={4}>
-            @lindsey_jam3s
+            {City} {State}
           </Text>
           <Text
             textAlign={'center'}
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
-            Actress, musician, songwriter and artist. PM for work inquires or{' '}
-            <Link href={'#'} color={'blue.400'}>
-              #tag
-            </Link>{' '}
-            me in your posts
+            {Desc}
+
+
           </Text>
 
           <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
