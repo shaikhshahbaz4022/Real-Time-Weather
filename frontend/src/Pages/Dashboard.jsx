@@ -1,11 +1,12 @@
 import InputBox from "../components/input";
 import WithSubnavigation from "../components/navbar";
 
-function Dashboard(){
+function Dashboard() {
     return (
         <div>
-            <WithSubnavigation/>
-            <InputBox/>
+            <WithSubnavigation />
+            <InputBox />
+
         </div>
     )
 }

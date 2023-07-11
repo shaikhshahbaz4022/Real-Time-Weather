@@ -11,8 +11,8 @@ const KEY = process.env.WEATHER_KEY
 
 
 
-cityRouter.get("/", Auth, async (req, res) => {
-    const city = req.query.city || req.preffered_city
+cityRouter.get("/", async (req, res) => {
+    const city = req.query.city 
     //city=pune
     try {
         let chacheddata = await redis.get(city+req.userID)//for perticular user search city
