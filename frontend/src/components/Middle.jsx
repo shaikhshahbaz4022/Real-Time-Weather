@@ -1,6 +1,6 @@
 import {
     Box,
-    Button,
+ 
     Container,
     Flex,
     Heading,
@@ -46,9 +46,7 @@ import {
               {description}
             </Text>
           </Box>
-          <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-            Learn more
-          </Button>
+         
         </Stack>
       </Box>
     );
@@ -69,42 +67,42 @@ import {
         <Container maxW={'5xl'} mt={12}>
           <Flex flexWrap="wrap" gridGap={6} justify="center">
             <Card
-              heading={'Heading'}
+              heading={'Your Real-Time Weather Companion'}
               icon={<Icon as={FcAssistant} w={10} h={10} />}
               description={
-                'Lorem ipsum dolor sit amet catetur, adipisicing elit.'
+                'Get up-to-the-minute weather updates and forecasts for any location'
               }
               href={'#'}
             />
             <Card
-              heading={'Heading'}
+              heading={'Stay Ahead with Accurate Weather Information'}
               icon={<Icon as={FcCollaboration} w={10} h={10} />}
               description={
-                'Lorem ipsum dolor sit amet catetur, adipisicing elit.'
+                'Stay informed with precise weather data and personalized forecasts tailored to your needs'
               }
               href={'#'}
             />
             <Card
-              heading={'Heading'}
+              heading={'Unleash the Power of Weather Insights'}
               icon={<Icon as={FcDonate} w={10} h={10} />}
               description={
-                'Lorem ipsum dolor sit amet catetur, adipisicing elit.'
+                'Unlock comprehensive weather insights, historical data, and advanced forecasting tools'
               }
               href={'#'}
             />
             <Card
-              heading={'Heading'}
+              heading={'Your All-in-One Weather Solution'}
               icon={<Icon as={FcManager} w={10} h={10} />}
               description={
-                'Lorem ipsum dolor sit amet catetur, adipisicing elit.'
+                'Experience a comprehensive weather app offering detailed forecasts, radar maps, and severe weather alerts'
               }
               href={'#'}
             />
             <Card
-              heading={'Heading'}
+              heading={' Empowering Your Everyday Weather Decisions'}
               icon={<Icon as={FcAbout} w={10} h={10} />}
               description={
-                'Lorem ipsum dolor sit amet catetur, adipisicing elit.'
+                'Make informed decisions with intelligent weather forecasts, pollen levels, and UV index information'
               }
               href={'#'}
             />

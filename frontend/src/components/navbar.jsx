@@ -23,27 +23,22 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 // import { useState } from 'react';
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   // const [toggle, settoggle] = useState(false)
   const navigate = useNavigate()
-  const [toggle, settoggle] = useState(false)
-  console.log(toggle);
+  // const [toggle, settoggle] = useState(false)
+
   let token = localStorage.getItem("token")
   let user = JSON.parse(localStorage.getItem("user")) || []
-  useEffect(() => {
 
-    if (token) {
-      settoggle(!toggle)
-    }
-  }, [])
 
   function HandleLogout() {
     localStorage.clear()
-    settoggle(!toggle)
+
     navigate("/")
   }
   return (
@@ -133,7 +128,7 @@ export default function WithSubnavigation() {
                 variant={'link'}
                 onClick={() => {
                   navigate("/login")
-                  settoggle(!toggle)
+                  // settoggle(!toggle)
                 }}>
                 Sign In
               </Button>
@@ -149,7 +144,7 @@ export default function WithSubnavigation() {
                   bg: 'pink.300',
                 }} onClick={() => {
                   navigate("/signup")
-                  settoggle(!toggle)
+                  // settoggle(!toggle)
 
                 }
 
@@ -312,13 +307,13 @@ const MobileNavItem = ({ label, children, href }) => {
   );
 };
 
-let her = localStorage.getItem("token")
+
 
 
 const NAV_ITEMS = [
   {
     label: 'Weather',
-    href: her ? "/dashboard" : "/login"
+    href: "/dashboard" 
 
 
     // children: [
