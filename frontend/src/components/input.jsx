@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import Swal from 'sweetalert2'
+import { Vortex } from 'react-loader-spinner'
 export default function InputBox() {
 
   const [Image, setImage] = useState("")
@@ -25,17 +26,23 @@ export default function InputBox() {
   const [Desc, setDesc] = useState("")
   const [Humidity, setHumidity] = useState("")
   const [Time, setTime] = useState("")
+  const [Country, setCountry] = useState("")
+  const [Wind, setWind] = useState("")
+  const [Loader, setLoader] = useState(false)
   const token = localStorage.getItem("token")
+
 
   const showele = document.getElementById("show")
   function Handlesubmit() {
     if (token) {
+      setLoader(true)
       fetch(`http://localhost:8080/city?city=${inputval}`)
         .then((res) => {
           return res.json()
         })
         .then((data) => {
           console.log(data)
+          setLoader(false)
           setinputval("")
 
           console.log(data.current.condition.icon);
@@ -46,10 +53,12 @@ export default function InputBox() {
           setState(data.location.region)
           setTime(data.location.localtime)
           setHumidity(data.current.humidity)
-
+          setCountry(data.location.country)
+          setWind(data.current.wind_kph)
 
         })
         .catch((err) => {
+          setLoader(false)
           console.log(err)
         })
       showele.style.display = "block"
@@ -64,7 +73,9 @@ export default function InputBox() {
 
   }
   return (
+
     <Flex
+
       flexDirection={'column'}
       minH={'100vh'}
       align={'center'}
@@ -108,6 +119,23 @@ export default function InputBox() {
           </Button>
         </Stack>
       </Stack>
+      <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+
+        {
+          Loader ?
+            <Vortex
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+            /> : "Search Completed"
+
+        }
+
+      </Stack>
 
       <Center py={6}>
         <Box
@@ -136,6 +164,9 @@ export default function InputBox() {
           <Text fontWeight={600} fontSize={'xl'} color={'black.500'} mb={4}>
             {City} {State}
           </Text>
+          <Text fontWeight={600} fontSize={'xl'} color={'black.500'} mb={4}>
+            {Country}
+          </Text>
           <Text
             textAlign={'center'}
             color={useColorModeValue('gray.700', 'gray.400')}
@@ -149,23 +180,27 @@ export default function InputBox() {
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
             TimeZone : {Time.toString()}
-          
+
           </Text>
           <Text
             textAlign={'center'}
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
-             Humidity : {Humidity}
+            Humidity : {Humidity}
+          </Text>
+          <Text
+            textAlign={'center'}
+            color={useColorModeValue('gray.700', 'gray.400')}
+            px={3}>
+            Wind_Speed : {Wind} km/h
+
+
           </Text>
 
 
-          <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
 
 
 
-          </Stack>
-
-      
         </Box>
       </Center>
     </Flex>
