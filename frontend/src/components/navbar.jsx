@@ -23,14 +23,13 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-// import { useState } from 'react';
+
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-  // const [toggle, settoggle] = useState(false)
+
   const navigate = useNavigate()
-  // const [toggle, settoggle] = useState(false)
+
 
   let token = localStorage.getItem("token")
   let user = JSON.parse(localStorage.getItem("user")) || []
@@ -144,7 +143,7 @@ export default function WithSubnavigation() {
                   bg: 'pink.300',
                 }} onClick={() => {
                   navigate("/signup")
-                  // settoggle(!toggle)
+                  
 
                 }
 
