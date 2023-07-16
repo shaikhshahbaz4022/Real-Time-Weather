@@ -29,7 +29,7 @@ const options = {
         servers: [
             {
                 url: "http://localhost:8080",
-                description : "Weather-API-DOCS "
+                description: "Weather-API-DOCS "
             }
         ]
     },
@@ -44,7 +44,12 @@ app.use("/user", userRouter)
 app.use(limiter)
 app.use("/city", cityRouter)
 
-
+app.get("/", (req, res) => {
+    res.send(
+       " <h1>Weather App Home-Route</h1>",
+      
+    )
+})
 
 
 app.listen(process.env.PORT, async () => {
