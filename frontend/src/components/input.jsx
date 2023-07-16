@@ -36,7 +36,7 @@ export default function InputBox() {
   function Handlesubmit() {
     if (token) {
       setLoader(true)
-      fetch(`http://localhost:8080/city?city=${inputval}`)
+      fetch(`https://weather-app-wuw4.onrender.com/city?city=${inputval}`)
         .then((res) => {
           return res.json()
         })
