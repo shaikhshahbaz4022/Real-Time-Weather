@@ -30,7 +30,7 @@ export default function SignupCard() {
     const [preffered_city, setpreffered_city] = useState("")
 
     function handleSubmit() {
-        fetch(`http://localhost:8080/user/register`, {
+        fetch(`https://weather-app-wuw4.onrender.com/user/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
