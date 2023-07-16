@@ -9,11 +9,13 @@ import {
   Center,
   Text,
   Stack,
-  
- 
+
+
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import Swal from 'sweetalert2'
+import { Vortex } from 'react-loader-spinner'
 export default function InputBox() {
 
   const [Image, setImage] = useState("")
@@ -24,36 +26,56 @@ export default function InputBox() {
   const [Desc, setDesc] = useState("")
   const [Humidity, setHumidity] = useState("")
   const [Time, setTime] = useState("")
+  const [Country, setCountry] = useState("")
+  const [Wind, setWind] = useState("")
+  const [Loader, setLoader] = useState(false)
+  const token = localStorage.getItem("token")
+
 
   const showele = document.getElementById("show")
   function Handlesubmit() {
+    if (token) {
+      setLoader(true)
+      fetch(`http://localhost:8080/city?city=${inputval}`)
+        .then((res) => {
+          return res.json()
+        })
+        .then((data) => {
+          console.log(data)
+          setLoader(false)
+          setinputval("")
 
-    fetch(`http://localhost:8080/city?city=${inputval}`)
-      .then((res) => {
-        return res.json()
+          console.log(data.current.condition.icon);
+          setImage(data.current.condition.icon)
+          setTemp(data.current.temp_c)
+          setDesc(data.current.condition.text)
+          setCity(data.location.name)
+          setState(data.location.region)
+          setTime(data.location.localtime)
+          setHumidity(data.current.humidity)
+          setCountry(data.location.country)
+          setWind(data.current.wind_kph)
+
+        })
+        .catch((err) => {
+          setLoader(false)
+          console.log(err)
+        })
+      showele.style.display = "block"
+    } else {
+      Swal.fire({
+        title: 'Kindly Login First',
+        text: 'Login To Enjoy Weather',
+        icon: 'error',
+        confirmButtonText: 'Cool'
       })
-      .then((data) => {
-        console.log(data)
-        setinputval("")
+    }
 
-        console.log(data.current.condition.icon);
-        setImage(data.current.condition.icon)
-        setTemp(data.current.temp_c)
-        setDesc(data.current.condition.text)
-        setCity(data.location.name)
-        setState(data.location.region)
-        setTime(data.location.localtime)
-        setHumidity(data.current.humidity)
-
-
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    showele.style.display = "block"
   }
   return (
+
     <Flex
+
       flexDirection={'column'}
       minH={'100vh'}
       align={'center'}
@@ -97,6 +119,23 @@ export default function InputBox() {
           </Button>
         </Stack>
       </Stack>
+      <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+
+        {
+          Loader ?
+            <Vortex
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="vortex-loading"
+              wrapperStyle={{}}
+              wrapperClass="vortex-wrapper"
+              colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+            /> : "Search Completed"
+
+        }
+
+      </Stack>
 
       <Center py={6}>
         <Box
@@ -122,8 +161,11 @@ export default function InputBox() {
           <Heading fontSize={'2xl'} fontFamily={'body'}>
             {Temp}°
           </Heading>
-          <Text fontWeight={600} color={'gray.500'} mb={4}>
+          <Text fontWeight={600} fontSize={'xl'} color={'black.500'} mb={4}>
             {City} {State}
+          </Text>
+          <Text fontWeight={600} fontSize={'xl'} color={'black.500'} mb={4}>
+            {Country}
           </Text>
           <Text
             textAlign={'center'}
@@ -138,44 +180,27 @@ export default function InputBox() {
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}>
             TimeZone : {Time.toString()}
+
+          </Text>
+          <Text
+            textAlign={'center'}
+            color={useColorModeValue('gray.700', 'gray.400')}
+            px={3}>
             Humidity : {Humidity}
           </Text>
-          
+          <Text
+            textAlign={'center'}
+            color={useColorModeValue('gray.700', 'gray.400')}
+            px={3}>
+            Wind_Speed : {Wind} km/h
 
-          <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-           
-          
-          
-          </Stack>
 
-          <Stack mt={8} direction={'row'} spacing={4}>
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              _focus={{
-                bg: 'gray.200',
-              }}>
-              Message
-            </Button>
-            <Button
-              flex={1}
-              fontSize={'sm'}
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              boxShadow={
-                '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-              }
-              _hover={{
-                bg: 'blue.500',
-              }}
-              _focus={{
-                bg: 'blue.500',
-              }}>
-              Follow
-            </Button>
-          </Stack>
+          </Text>
+
+
+
+
+
         </Box>
       </Center>
     </Flex>
